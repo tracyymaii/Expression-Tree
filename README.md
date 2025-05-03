@@ -1,8 +1,7 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/_md7wdLR)
-# Create an Expression Tree from a Postfix Expression
+# Creates an Expression Tree from a Postfix Expression
 
 ## Goal
-The goal of this lab is to create an expression tree given a postfix arithmetic expression. You will practice the following concepts in this lab:
+The goal of this program is to create an expression tree given a postfix arithmetic expression. I practiced the following concepts in this lab:
 * Expression Tree, with dynamic allocation of nodes
 * Tree Traversals, traverse the expression tree using the three traversal types: Inorder, Postorder, Preorder
 * Expression Tree Evaluation, evaluate the arithmetic expression represented by the tree
@@ -14,7 +13,7 @@ The picture below shows the expression tree for the infix expression $\frac{12.0
 
 <img src="./images/expr-tree1.png" alt="alt text" width="300">
 
-Notice in the image that the operator $/$ is the root of the tree and that its operands are the children of that node. Also, you can see that if you traverse that tree inorder, you will get the infix notation of that expression, if you traverse postorder you will get the postfix notation, and if you traverse preorder you will get the prefix notation.
+Notice in the image that the operator $/$ is the root of the tree and that its operands are the children of that node. Also, you can see that if you traverse that tree inorder, the output will be the infix notation of that expression, if you traverse postorder you will get the postfix notation, and if you traverse preorder you will get the prefix notation.
 
 | Infix      | Postfix        | Prefix          |
 |------------|----------------|-----------------|
@@ -25,16 +24,15 @@ Below is an additional expression tree for the expression: $6.0 * (5.2 - 2.2) + 
 <img src="./images/expr-tree2.png" alt="alt text" width="600">
 
 
-## Your Task for this Lab
+## My Task for this Program
 
-In this lab you will need to design the classes and their code to:
+In this program I designed the classes and their code to:
 * Read/Receive a postfix expression and from it create the Expression Tree. This is done by instantiating the class `Tree` and calling its method `BuildTree`. This operation creates in memory the tree. The root of the tree is pointed by data member `_root`. This data member is type `TreeNode*` which is left to you to implement.
-    > HINT: A Tree Node has three parts: data, left and right. You will need to think about what is going to be the type of data. Remember that you will be storing numbers (operands), operators, evaluation values, etc.
-* Once the tree is built in memory then you will need to traverse the three using all three traversal types (Inorder, Preorder, and Postorder). These traversals return a string showing the data on each of the tree nodes. For this you will call the `Tree::Traverse` method.
+* Once the tree is built in memory then I traversed the three using all three traversal types (Inorder, Preorder, and Postorder). These traversals return a string showing the data on each of the tree nodes. For this you will call the `Tree::Traverse` method.
 * The next phase is to evaluate the expression stored in the tree. This is done calling the `Tree::Evaluate`. This method returns a double that is the result of evaluating the expression.
-* Lastly, you will implement the method `Tree::StepByStepCalculation` this method will send to the `ostream` parameter the data stored on each of the nodes as they were calculated. The information that this operation displays will show the "structure" of the tree.
+* Lastly, I implemented the method `Tree::StepByStepCalculation` this method sends to the `ostream` parameter the data stored on each of the nodes as they were calculated. The information that this operation displays will show the "structure" of the tree.
 
-### Step by Step Tasks
+### Step by Step 
 
 Given the following expression: `6 5.2 2.2 - * 2 5 ^ +` each of the steps explained above would look as follows.
 
@@ -96,16 +94,6 @@ In the image below appreciate the values of some fields for each of the nodes of
 
 <img src="./images/decorated-tree.png" alt="alt text" width="600">
 
-> You will need to produce the exact same output, note the pattern in which the nodes get their id. What kind of traversal do you think is used to construct the step-by-step evaluation?
-
-
-## What you are Given
-
-You are given the following files:
-* `main.cpp` this file contains the source code for the tests for the `Tree` class. You **may not** modify this class in any way.
-* `tree.h` and `tree.cpp` these files are the main interface of your assignment, you **must** implement the methods declared for the class `Tree` in `tree.cpp`. You may write more methods. But, if you don't implement the given methods your `main` will no longer work. See below for a description of the methods.
-* `tree_node.h` and `tree_node.cpp` these files are mostly empty and are given to allow the program to compile. (it doesn't build though)
-
 ## Description of class `Tree`
 The declaration of the class is:
 
@@ -132,14 +120,14 @@ public:
 * The `enum TraversalType` in the beginning creates a new type that is used in the method `Traverse` to specify what kind of traversal the user of this class wants to do. For more information about enum read [here](https://cplusplus.com/doc/tutorial/other_data_types/), [here](https://en.cppreference.com/w/cpp/language/enum) or [here](https://www.geeksforgeeks.org/enumeration-in-cpp/).
 * The class needs only one data member `_root`. This represents a pointer to the root of the tree.
 * The methods of the class are:
-  * `Tree(const Tree& other)` Copy constructor of the class. You _do not have_ to implement this method. I would be good exercise, but it is not expected.
-  * `const Tree& operator=(const Tree& rhs)` Copy assignment operator of the class. You _do not have_ to implement this method. I would be good exercise, but it is not expected.
+  * `Tree(const Tree& other)` Copy constructor of the class.
+  * `const Tree& operator=(const Tree& rhs)` Copy assignment operator of the class.
   * `Tree()` Default constructor, it only sets the `_root` to `nullptr`.
   * `~Tree()` Destructor. Takes care of deallocating all the memory used by the tree.
-  * `bool BuildTree(const string& postfixExpression)` This is one of the most important methods of this assignment. The method takes in a string representing a postfix arithmetic expression. Given this expression the method will build the expression tree. If the method is unable to do it, then it should return false, if it was to successfully create the tree then it should return true. A hint for this method: _use a stack_.
-  * `string Traverse(TraversalType traversalType)const` this method returns a string with the elements of the tree separated by spaces. The elements will be added to this string according to the type of traversal "requested" by the parameter. If you see lines 207, 208 and 209 in `main.cpp` you will note that this method is called three times, each time selecting one of the traversal types. 
-  * `double Evaluate()const` this method evaluates the expression tree. It will return the number resulting from the evaluation.
-  * `void StepByStepEvaluation(ostream& output, bool useLevel = false)const` this method will show expression tree with its evaluation values. Each evaluation step is represented by a JSON formatted line. The `output` parameter is where these strings are going to be sent to. The `useLevel` parameter is used when a _leveled_ output is desired.
+  * `bool BuildTree(const string& postfixExpression)` The method takes in a string representing a postfix arithmetic expression. Given this expression the method will build the expression tree. If the method is unable to do it, then it should return false, if it was to successfully create the tree then it should return true. 
+  * `string Traverse(TraversalType traversalType)const` This method returns a string with the elements of the tree separated by spaces. The elements will be added to this string according to the type of traversal "requested" by the parameter. If you see lines 207, 208 and 209 in `main.cpp` you will note that this method is called three times, each time selecting one of the traversal types. 
+  * `double Evaluate()const` This method evaluates the expression tree. It returns the number resulting from the evaluation.
+  * `void StepByStepEvaluation(ostream& output, bool useLevel = false)const` This method shows expression tree with its evaluation values. Each evaluation step is represented by a JSON formatted line. The `output` parameter is where these strings are going to be sent to. The `useLevel` parameter is used when a _leveled_ output is desired.
 
 ### Output for `StepByStepEvaluation`
 
@@ -190,9 +178,9 @@ public:
 
 > Note that when `useLevel` is true, the fields `id` and `parent` are not necessary as the parent/children relationship is represented in the output.
 
-## Assessment
+## Tests
 
-You are receiving a the following ten test expressions (hard-coded in your `main`):
+The following ten test expressions are hard-coded in into `main`:
 ```
             2.1 4.5 +
             12 3 /
@@ -206,7 +194,7 @@ You are receiving a the following ten test expressions (hard-coded in your `main
             2 2 2 3 3 * + + +
 ```
 
-At the end of the execution of your program it should show:
+At the end of the execution of the program it should show:
 
 `Passed Tests: 100.00`
 
@@ -219,31 +207,6 @@ For each expression, the tests are graded as follows:
 
 Total points per expression is 10. For the ten given tests, then it results in a total of 100 points.
 
-
-### Grading Rubric 
-The following formula will be used to calculate your grade:
-
-$G = UT * (TP + EC - D)$
-
-Where:
-* $UT$ is a number 0 or 1. If your assignment explicitly uses a tree and the tree was implemented by you, then this gets the value of 1. Zero otherwise.
-* $TP$ is the number of total tests passed, as reported by the program.
-* $EC$ represents the number of points for extra credit (See Extra Credit for Details).
-* $D$ represents the deductions (See Deductions for Details).
-
-**You can only get the extra credit if you finish the all the default requirements of this assignment**
-
-#### Extra Credit
-To receive this extra credit you will need to implement the `useLevel = true` part of the `StepByStepEvaluation` method. So, if the user sends `true` as the value of that parameter, then you should do either one of the following options (only one of them).
-* "Easy Extra Credit", output the "leveled" tree as it was shown in the "Output for `StepByStepEvaluation`" section.
-* "Turbo Extra Credit", "draws" a text version of a tree.
-
-The maximum amount of extra credit for this assignment is 75%. That means that an assignment could achieve 175 points out of 100.
-
-**Examples**
-
-For expression `7 5 + 5 2 - /`
-
 Leveled tree:
 ```
 {"value":4.00, "operator":"/", "operand":false}
@@ -254,69 +217,6 @@ Leveled tree:
 		{"value":5.00, "operator":"#", "operand":true}
 		{"value":2.00, "operator":"#", "operand":true}
 ```
-
-Drawn tree:
-```
-                 (/)
-                 / \
-                /   \
-              (+)   (-)
-              / \   / \
-             7   5 5   2
-```
-> Note: This is **One** way to do it, it doesn't need to match this exactly. The better looking the drawing it is, the more extra credit the assignment will receive.
-> 
-#### Deductions
-* For each infraction on good programming practices there will be a deduction of 5 points.
-* If the program has a runtime error (the program crashes) there will be a deduction of 20 points.
-* For each warning there will be a deduction of 5 points.
-* If `valgrind` reports any errors there will be a deduction of 15 points.
-* If the program does not have comment headers there will be a deduction of 5 points (check previously given code for example of header comments).
-* If the program does not have comments on functions and appropriate additional comments there will be a deduction of 5 points (check previously given code for example of header comments).
-* If the program does not follow instructions, for instance if you did not implement any of the requested functions, there will be a deduction of 5 points per ignored instruction
-* If the program does not compile, the grade will be zero.
-* If the program does not use the `stack` class from C++ STL, the grade will be zero.
-* If the program does not implement from scratch an expression tree, the grade will be zero.
-* If the program does not use the implemented expression tree, the grade will be zero.
-
-```
- __          __              _             
- \ \        / /             (_)            
-  \ \  /\  / /_ _ _ __ _ __  _ _ __   __ _ 
-   \ \/  \/ / _` | '__| '_ \| | '_ \ / _` |
-    \  /\  / (_| | |  | | | | | | | | (_| |
-     \/  \/ \__,_|_|  |_| |_|_|_| |_|\__, |
-                                      __/ |
-                                     |___/ 
-                                     
-R E M E M B E R    T O    C H E C K    C A N V A S
-F O R   P R O G R A M M I N G   P R A C T I C E S
-```
-> NOTE: Remember to check the Canvas Page about Programming Practices and the course coding conventions.
-
-## Academic Integrity
-
-This programming assignment is to be done on an **individual** basis. At the same time, it is understood that learning from your peers is valid, and you are encouraged to talk among yourselves about programming in general and current assignments in particular.  Keep in mind, however, that each individual student must do the work in order to learn.
-
-Hence, the following guidelines are established:
-* Feel free to discuss any and all programming assignments but do not allow other students to look at or copy your code. Do not give any student an electronic or printed copy of any program you write for this class.
-* Gaining the ability to properly analyze common programming errors is an important experience. Do not deprive a fellow student of his/her opportunity to practice problem-solving: control the urge to show them what to do by writing the code for them.
-* If you've given the assignment a fair effort and still need help, see the instructor or a lab assistant.
-* If there is any evidence that a program or other written assignment was copied from another student (or from any source), neither student will receive any credit for it. This rule will be enforced.
-* Protect yourself: Handle throw-away program listings carefully.
-* Remember to read the Academic Integrity guidelines provided in the class syllabus.
-* DO NOT copy code from any source, **ALL** the submitted code should be written by you (except the code that is given).
-
----
-
-&#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622;
-
-> Note: you may only use techniques taught in class. If there is something you want to used not covered in class you will need to discuss it with your instructor. The instructor could ask you to explain any part of your code if they seem it necessary. We acknowledge the existence of Generative AI. *YOU ARE _NOT_ TO USE IT*. The use of this technology is appropriate in other contexts, but at this level of your education it will *not* help you in your professional growth. If you have any questions about this, please contact your instructor A.S.A.P.
-
-&#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622; &#x2622;
-
-
----
 
 
 
